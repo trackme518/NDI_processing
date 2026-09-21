@@ -19,6 +19,7 @@ Changes implemented
 * JDK 17 toolchain
 * Modern C++ toolchain builds — direct host clang++/g++/MSVC with plain C++17
 CI automated - new universal-artifact pipeline (per-platform jars merged into one jar)
+* using NDI SDK v6
 
 **Library info**
 
