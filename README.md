@@ -71,7 +71,7 @@ Restart Processing; the library then appears under `Sketch` > `Import Library...
 Add the import to your sketch:
 
 ```java
-import p5.ndi.*;
+import ndi.stream.*;
 ```
 
 The `examples` folder contains ready-to-run Processing sketches:
@@ -92,7 +92,7 @@ The `examples` folder contains ready-to-run Processing sketches:
 A minimal receiver:
 
 ```java
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Receiver receiver = new NDIP5Receiver();
 NDIP5VideoFrame videoFrame = new NDIP5VideoFrame();

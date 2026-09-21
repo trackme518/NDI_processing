@@ -3,7 +3,7 @@
 // for the frame to be sent.
 // Adapted from the NDIP5 SendVideoAsyncExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

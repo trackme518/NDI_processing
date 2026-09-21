@@ -2,7 +2,7 @@
 // which resamples audio and paces video so both arrive at a fixed rate.
 // Adapted from the NDIP5 FrameSyncExample / NDIlib_Recv_FrameSync.cpp.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Receiver receiver;
 NDIP5FrameSync frameSync;

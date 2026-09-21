@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

@@ -1,7 +1,7 @@
 // SendAudio16bpp: Sends generated audio as interleaved 16-bit signed NDI audio.
 // Adapted from the NDIP5 SendAudio16bppExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

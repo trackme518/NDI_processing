@@ -2,7 +2,7 @@
 // on the network. Useful for building a software switcher.
 // Adapted from the NDIP5 RoutingExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Router router;
 NDIP5Finder finder;

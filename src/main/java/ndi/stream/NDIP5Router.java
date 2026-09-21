@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * An object used to create a fake "routed" source, which mirrors another source and can seamlessly switch between them.

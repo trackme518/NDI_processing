@@ -1,16 +1,16 @@
 #include "devolay.h"
 
-#include "p5_ndi_NDIP5FrameSync.h"
+#include "ndi_stream_NDIP5FrameSync.h"
 
-JNIEXPORT jlong JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncCreate(JNIEnv *env, jclass jClazz, jlong pReceiver) {
+JNIEXPORT jlong JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncCreate(JNIEnv *env, jclass jClazz, jlong pReceiver) {
     return (jlong) getNDILib()->framesync_create(reinterpret_cast<NDIlib_recv_instance_t>(pReceiver));
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncDestroy(JNIEnv *env, jclass jClazz, jlong pFramesync) {
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncDestroy(JNIEnv *env, jclass jClazz, jlong pFramesync) {
     getNDILib()->framesync_destroy(reinterpret_cast<NDIlib_framesync_instance_t>(pFramesync));
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncCaptureAudio
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncCaptureAudio
         (JNIEnv *env, jclass jClazz, jlong pFramesync, jlong pFrame, jint jSampleRate, jint jNoChannels, jint jNoSamples) {
     getNDILib()->framesync_capture_audio(reinterpret_cast<NDIlib_framesync_instance_t>(pFramesync),
             reinterpret_cast<NDIlib_audio_frame_v2_t *>(pFrame),
@@ -18,18 +18,18 @@ JNIEXPORT void JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncCaptureAudio
 }
 
 // For some reason, this isn't implemented in the DynamicLoad spec for NDI. It may be added in a future version
-/*JNIEXPORT jint Java_p5_ndi_NDIP5FrameSync_framesyncAudioQueueDepth
+/*JNIEXPORT jint Java_ndi_stream_NDIP5FrameSync_framesyncAudioQueueDepth
         (JNIEnv *env, jclass jClazz, jlong pFramesync) {
     return getNDILib()->NDIlib_framesync_audio_queue_depth(reinterpret_cast<NDIlib_framesync_instance_t *>(pFramesync));
 }*/
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncFreeAudio
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncFreeAudio
         (JNIEnv *env, jclass jClazz, jlong pFramesync, jlong pFrame) {
     getNDILib()->framesync_free_audio(reinterpret_cast<NDIlib_framesync_instance_t>(pFramesync),
             reinterpret_cast<NDIlib_audio_frame_v2_t *>(pFrame));
 }
 
-JNIEXPORT jboolean JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncCaptureVideo
+JNIEXPORT jboolean JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncCaptureVideo
         (JNIEnv *env, jclass jClazz, jlong pFramesync, jlong pFrame, jint jFrameFormatType) {
     getNDILib()->framesync_capture_video(reinterpret_cast<NDIlib_framesync_instance_t>(pFramesync),
             reinterpret_cast<NDIlib_video_frame_v2_t *>(pFrame),
@@ -38,7 +38,7 @@ JNIEXPORT jboolean JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncCaptureVideo
     return reinterpret_cast<NDIlib_video_frame_v2_t *>(pFrame)->p_data != (uint8_t *)nullptr;
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5FrameSync_framesyncFreeVideo
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5FrameSync_framesyncFreeVideo
         (JNIEnv *env, jclass jClazz, jlong pFramesync, jlong pFrame) {
     getNDILib()->framesync_free_video(reinterpret_cast<NDIlib_framesync_instance_t>(pFramesync),
             reinterpret_cast<NDIlib_video_frame_v2_t *>(pFrame));

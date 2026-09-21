@@ -1,7 +1,7 @@
 // ReceiveVideo: Connects to the first NDI source found on the network and displays
 // its video, scaled to fit the sketch window.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Receiver receiver;
 NDIP5VideoFrame videoFrame;

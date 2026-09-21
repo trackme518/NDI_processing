@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * Represents the scan type of any given frame. Can either represent a progressive frame, a fielded frame, or individual

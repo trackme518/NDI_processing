@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * An internal interface to track where frames have been allocated.

@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * Stores data about total and dropped video/audio/metadata frames. This structure is only updated when used as an

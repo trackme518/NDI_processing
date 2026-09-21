@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicReference;

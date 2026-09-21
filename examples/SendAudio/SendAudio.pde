@@ -2,7 +2,7 @@
 // with the video from the SendVideo example.
 // Adapted from the NDIP5 SendAudioExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

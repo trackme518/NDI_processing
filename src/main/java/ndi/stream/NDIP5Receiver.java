@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * A structure to connect to and receive frames from {@link NDIP5Source} instances.

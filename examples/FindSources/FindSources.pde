@@ -2,7 +2,7 @@
 // NDI sources are any application on the network sending video with the NDI protocol
 // (e.g. NDI Screen Capture, OBS with the NDI plugin, vMix, another Processing sketch...).
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Finder finder;
 

@@ -2,7 +2,7 @@
 // information about each received frame to the console.
 // Adapted from NDIlib_Recv_Video.cpp / the NDIP5 RecvExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 NDIP5Receiver receiver;
 NDIP5VideoFrame videoFrame;

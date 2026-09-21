@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * Represents the color format of any given frame. It is recommended, when able, to use the UYVY or UYVA color formats,

@@ -3,7 +3,7 @@
 // keeping audio and video aligned.
 // Adapted from the NDIP5 MonitorExample.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 import javax.sound.sampled.*;
 import java.nio.ByteBuffer;

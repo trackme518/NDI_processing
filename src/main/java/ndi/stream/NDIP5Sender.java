@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * An object used to send video/audio/metadata frames on a network or across internet connections.

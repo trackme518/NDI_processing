@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * Represents the type of an arbitrary frame provided by NDIP5.

@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 public class NDIP5Utilities {
 

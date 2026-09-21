@@ -2,9 +2,9 @@
 
 #include <cstring>
 
-#include "p5_ndi_NDIP5Router.h"
+#include "ndi_stream_NDIP5Router.h"
 
-JNIEXPORT jlong JNICALL Java_p5_ndi_NDIP5Router_routingCreate(JNIEnv *env, jclass jClazz, jstring jNdiName, jstring jGroups) {
+JNIEXPORT jlong JNICALL Java_ndi_stream_NDIP5Router_routingCreate(JNIEnv *env, jclass jClazz, jstring jNdiName, jstring jGroups) {
     auto *NDI_routing_create_desc = new NDIlib_routing_create_t();
 
     if (jNdiName != nullptr) {
@@ -27,22 +27,22 @@ JNIEXPORT jlong JNICALL Java_p5_ndi_NDIP5Router_routingCreate(JNIEnv *env, jclas
     return (jlong) ret;
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5Router_routingChange(JNIEnv *env, jclass jClazz, jlong pRouter, jlong pSource) {
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5Router_routingChange(JNIEnv *env, jclass jClazz, jlong pRouter, jlong pSource) {
     getNDILib()->routing_change(reinterpret_cast<NDIlib_routing_instance_t>(pRouter), reinterpret_cast<NDIlib_source_t *>(pSource));
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5Router_routingClear(JNIEnv *env, jclass jClazz, jlong pRouter) {
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5Router_routingClear(JNIEnv *env, jclass jClazz, jlong pRouter) {
     getNDILib()->routing_clear(reinterpret_cast<NDIlib_routing_instance_t>(pRouter));
 }
 
-JNIEXPORT jint JNICALL Java_p5_ndi_NDIP5Router_routingNoConnections(JNIEnv *env, jclass jClazz, jlong pRouter, jint jTimeoutMs) {
+JNIEXPORT jint JNICALL Java_ndi_stream_NDIP5Router_routingNoConnections(JNIEnv *env, jclass jClazz, jlong pRouter, jint jTimeoutMs) {
     return getNDILib()->routing_get_no_connections(reinterpret_cast<NDIlib_routing_instance_t>(pRouter), jTimeoutMs);
 }
 
-JNIEXPORT jlong JNICALL Java_p5_ndi_NDIP5Router_routingSource(JNIEnv *env, jclass jClazz, jlong pRouter) {
+JNIEXPORT jlong JNICALL Java_ndi_stream_NDIP5Router_routingSource(JNIEnv *env, jclass jClazz, jlong pRouter) {
     return (jlong) getNDILib()->routing_get_source_name(reinterpret_cast<NDIlib_routing_instance_t>(pRouter));
 }
 
-JNIEXPORT void JNICALL Java_p5_ndi_NDIP5Router_routingDestroy(JNIEnv *env, jclass jClazz, jlong pRouter) {
+JNIEXPORT void JNICALL Java_ndi_stream_NDIP5Router_routingDestroy(JNIEnv *env, jclass jClazz, jlong pRouter) {
     getNDILib()->routing_destroy(reinterpret_cast<NDIlib_routing_instance_t>(pRouter));
 }

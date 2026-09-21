@@ -1,4 +1,4 @@
-package p5.ndi;
+package ndi.stream;
 
 /**
  * An object representing the result of a {@link NDIP5Sender#getTally(int)} call, describing where a {@link NDIP5Sender}

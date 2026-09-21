@@ -1,7 +1,7 @@
 // SendVideo: Sends this sketch's own visuals out as an NDI video source.
 // Anything you can draw in Processing can be sent as NDI.
 
-import p5.ndi.*;
+import ndi.stream.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
