@@ -9,9 +9,9 @@ NDI sources from other applications (NDI Screen Capture, OBS, vMix, TriCasters, 
 as `PImage` video and audio buffers, and anything you draw in a sketch can be transmitted as an
 NDI source.
 
-This project is a fork of [Devolay](https://github.com/WalkerKnapp/devolay) by Walker Knapp
+This project is based on [Devolay](https://github.com/WalkerKnapp/devolay) by Walker Knapp
 (originally Apache-2.0 licensed) and carries over its substantial original source; upstream
-copyright is retained by its author. The fork's additions and modifications are licensed under
+copyright is retained by its author. This library additions and modifications are licensed under
 GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2.0 grant.
 
 **Library info**
