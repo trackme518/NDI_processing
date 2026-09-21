@@ -105,14 +105,14 @@ jobs:
           set -euo pipefail
           gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p 'NDI_p5-*.zip' -D dl
           for variant in allinone system-runtime; do
-            rm -rf work all; mkdir -p work all
+            rm -rf work all tmp-linux tmp-windows; mkdir -p work all
             # macOS is the base (its jar already carries arm64 + x86-64 slices).
-            unzip -q "dl/NDI_p5-macos-${variant}.zip" -d work
+            unzip -oq "dl/NDI_p5-macos-${variant}.zip" -d work
             jar="$(pwd)/work/NDI_p5/library/NDI_p5.jar"
             for p in linux windows; do
               case "$p" in linux) pkg=linux-x86-64;; windows) pkg=windows-x86-64;; esac
-              unzip -q "dl/NDI_p5-${pkg}-${variant}.zip" NDI_p5/library/NDI_p5.jar -d "tmp-${p}"
-              unzip -q "tmp-${p}/NDI_p5/library/NDI_p5.jar" 'natives/*' -d all
+              unzip -oq "dl/NDI_p5-${pkg}-${variant}.zip" NDI_p5/library/NDI_p5.jar -d "tmp-${p}"
+              unzip -oq "tmp-${p}/NDI_p5/library/NDI_p5.jar" 'natives/*' -d all
             done
             # One jar with natives/macos + natives/linux + natives/windows;
             # NDIP5.java extracts the slice matching the running OS/arch.
