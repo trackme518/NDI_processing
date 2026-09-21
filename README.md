@@ -14,6 +14,12 @@ This project is based on [Devolay](https://github.com/WalkerKnapp/devolay) by Wa
 copyright is retained by its author. This library additions and modifications are licensed under
 GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2.0 grant.
 
+Changes implemented
+* Gradle 8.5
+* JDK 17 toolchain
+* Modern C++ toolchain builds — direct host clang++/g++/MSVC with plain C++17
+CI automated - new universal-artifact pipeline (per-platform jars merged into one jar)
+
 **Library info**
 
 - **Download:** latest release - [`NDIStream.zip`](https://github.com/trackme518/NDI_processing/releases/latest/download/NDIStream.zip)
