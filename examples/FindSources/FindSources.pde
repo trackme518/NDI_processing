@@ -4,7 +4,7 @@
 
 import ndi.stream.*;
 
-NDIP5Finder finder;
+NDIFinder finder;
 
 String[] sourceNames = new String[0];
 
@@ -12,7 +12,7 @@ void setup() {
   size(640, 480);
   textFont(createFont("SansSerif", 16));
 
-  finder = new NDIP5Finder();
+  finder = new NDIFinder();
 }
 
 void draw() {
@@ -30,7 +30,7 @@ void draw() {
 
   // Update the list of sources whenever it changes (blocking for up to 100ms)
   if (finder.waitForSources(100)) {
-    NDIP5Source[] sources = finder.getCurrentSources();
+    NDISource[] sources = finder.getCurrentSources();
     sourceNames = new String[sources.length];
     for (int i = 0; i < sources.length; i++) {
       sourceNames[i] = sources[i].getSourceName();

@@ -95,20 +95,20 @@ A minimal receiver:
 ```java
 import ndi.stream.*;
 
-NDIP5Receiver receiver = new NDIP5Receiver();
-NDIP5VideoFrame videoFrame = new NDIP5VideoFrame();
+NDIReceiver receiver = new NDIReceiver();
+NDIVideoFrame videoFrame = new NDIVideoFrame();
 
 void settings() { size(1280, 720); }
 
 void setup() {
-  try (NDIP5Finder finder = new NDIP5Finder()) {
+  try (NDIFinder finder = new NDIFinder()) {
     finder.waitForSources(5000);
     receiver.connect(finder.getCurrentSources()[0]);
   }
 }
 
 void draw() {
-  if (receiver.receiveCapture(videoFrame, null, null, 0) == NDIP5FrameType.VIDEO) {
+  if (receiver.receiveCapture(videoFrame, null, null, 0) == NDIFrameType.VIDEO) {
     // display frames (see the ReceiveVideo example for the pixel copy)
   }
 }

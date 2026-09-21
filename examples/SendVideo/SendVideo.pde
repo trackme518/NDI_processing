@@ -7,8 +7,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-NDIP5Sender sender;
-NDIP5VideoFrame videoFrame;
+NDISender sender;
+NDIVideoFrame videoFrame;
 
 PGraphics canvas;
 
@@ -28,11 +28,11 @@ void setup() {
   size(640, 360);
 
   // Create the sender with a name. Other applications will see it on the network under this name.
-  sender = new NDIP5Sender("NDI_p5 Processing Example");
+  sender = new NDISender("NDI_p5 Processing Example");
 
-  videoFrame = new NDIP5VideoFrame();
+  videoFrame = new NDIVideoFrame();
   videoFrame.setResolution(VIDEO_WIDTH, VIDEO_HEIGHT);
-  videoFrame.setFourCCType(NDIP5FrameFourCCType.BGRA);
+  videoFrame.setFourCCType(NDIFrameFourCCType.BGRA);
   videoFrame.setFrameRate(VIDEO_FPS, 1);
   videoFrame.setLineStride(VIDEO_WIDTH * PIXEL_DEPTH);
 

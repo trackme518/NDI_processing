@@ -15,7 +15,7 @@ public class NDIStream {
     private static String extractedNdiLibraryPath = null;
 
     static {
-        String devolayLibraryName = System.mapLibraryName("ndip5-natives");
+        String devolayLibraryName = System.mapLibraryName("ndistream-natives");
         String ndiLibraryName = System.mapLibraryName("ndi");
         String libraryExtension = devolayLibraryName.substring(devolayLibraryName.indexOf('.'));
 
@@ -23,7 +23,7 @@ public class NDIStream {
         String archDirectory = getArchDirectory();
 
         if (!osDirectory.equals("android")) {
-            Path devolayNativesPath = extractNative("ndip5-natives", libraryExtension,
+            Path devolayNativesPath = extractNative("ndistream-natives", libraryExtension,
                     "/natives/" + osDirectory + "/" + archDirectory + "/" + devolayLibraryName);
             Path ndiLibraryPath = extractNative("ndi", libraryExtension,
                     "/natives/" + osDirectory + "/" + archDirectory + "/" + ndiLibraryName);
@@ -39,7 +39,7 @@ public class NDIStream {
             System.load(devolayNativesPath.toAbsolutePath().toString());
         } else {
             // NDIStream on Android should be loaded as an aar, so natives don't have to be extracted.
-            System.loadLibrary("ndip5-natives");
+            System.loadLibrary("ndistream-natives");
             extractedNdiLibraryPath = findLibrary("ndi");
         }
 

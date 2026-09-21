@@ -3,8 +3,8 @@
 
 import ndi.stream.*;
 
-NDIP5Receiver receiver;
-NDIP5VideoFrame videoFrame;
+NDIReceiver receiver;
+NDIVideoFrame videoFrame;
 
 PImage videoImage;
 
@@ -12,12 +12,12 @@ void setup() {
   size(1280, 720);
 
   // Receive the video in the RGBA color format, which maps directly to PImage pixels
-  receiver = new NDIP5Receiver(NDIP5Receiver.ColorFormat.RGBX_RGBA, 100, false, "NDI_p5 Processing Example");
-  videoFrame = new NDIP5VideoFrame();
+  receiver = new NDIReceiver(NDIReceiver.ColorFormat.RGBX_RGBA, 100, false, "NDI_p5 Processing Example");
+  videoFrame = new NDIVideoFrame();
 
   // Find a source to connect to
-  NDIP5Source[] sources = null;
-  try (NDIP5Finder finder = new NDIP5Finder()) {
+  NDISource[] sources = null;
+  try (NDIFinder finder = new NDIFinder()) {
     while ((sources = finder.getCurrentSources()).length == 0) {
       println("Waiting for sources...");
       finder.waitForSources(5000);
@@ -31,9 +31,9 @@ void draw() {
   background(0);
 
   // Non-blocking capture of one frame element
-  NDIP5FrameType frameType = receiver.receiveCapture(videoFrame, null, null, 0);
+  NDIFrameType frameType = receiver.receiveCapture(videoFrame, null, null, 0);
 
-  if (frameType == NDIP5FrameType.VIDEO) {
+  if (frameType == NDIFrameType.VIDEO) {
     int w = videoFrame.getXResolution();
     int h = videoFrame.getYResolution();
 

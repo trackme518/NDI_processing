@@ -4,8 +4,8 @@
 
 import ndi.stream.*;
 
-NDIP5Router router;
-NDIP5Finder finder;
+NDIRouter router;
+NDIFinder finder;
 
 String currentRoute = "(nothing)";
 long lastSwitchTime = 0;
@@ -17,8 +17,8 @@ void setup() {
   size(400, 200);
 
   // Create a new routed source
-  router = new NDIP5Router("Example Routed Source");
-  finder = new NDIP5Finder();
+  router = new NDIRouter("Example Routed Source");
+  finder = new NDIFinder();
 }
 
 void draw() {
@@ -33,7 +33,7 @@ void draw() {
   lastSwitchTime = millis();
 
   // Get a list of current sources on the network
-  NDIP5Source[] availableSources = finder.getCurrentSources();
+  NDISource[] availableSources = finder.getCurrentSources();
 
   if (availableSources.length == 0) {
     // If no sources were found, route to nowhere (black screen)
@@ -42,7 +42,7 @@ void draw() {
     println("Routing to nothing.");
   } else {
     // If sources were found, choose one at random to route to
-    NDIP5Source targetSource = availableSources[(int) random(availableSources.length)];
+    NDISource targetSource = availableSources[(int) random(availableSources.length)];
     router.setSource(targetSource);
     currentRoute = targetSource.getSourceName();
     println("Routing to " + currentRoute);

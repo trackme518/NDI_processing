@@ -8,11 +8,11 @@ import ndi.stream.*;
 import javax.sound.sampled.*;
 import java.nio.ByteBuffer;
 
-NDIP5Receiver receiver;
-NDIP5FrameSync frameSync;
-NDIP5VideoFrame videoFrame;
-NDIP5AudioFrame audioFrame;
-NDIP5AudioFrameInterleaved16s interleaved16s;
+NDIReceiver receiver;
+NDIFrameSync frameSync;
+NDIVideoFrame videoFrame;
+NDIAudioFrame audioFrame;
+NDIAudioFrameInterleaved16s interleaved16s;
 
 SourceDataLine soundLine;
 
@@ -35,11 +35,11 @@ void setup() {
       throw new RuntimeException(e);
   }
 
-  receiver = new NDIP5Receiver();
+  receiver = new NDIReceiver();
 
   // Find a source to connect to
-  NDIP5Source[] sources = null;
-  try (NDIP5Finder finder = new NDIP5Finder()) {
+  NDISource[] sources = null;
+  try (NDIFinder finder = new NDIFinder()) {
     while ((sources = finder.getCurrentSources()).length == 0) {
       println("Waiting for sources...");
       finder.waitForSources(5000);
@@ -48,16 +48,16 @@ void setup() {
     receiver.connect(sources[0]);
   }
 
-  videoFrame = new NDIP5VideoFrame();
-  audioFrame = new NDIP5AudioFrame();
+  videoFrame = new NDIVideoFrame();
+  audioFrame = new NDIAudioFrame();
 
   // Setup frame to convert floating-point data to 16-bit signed data
-  interleaved16s = new NDIP5AudioFrameInterleaved16s();
+  interleaved16s = new NDIAudioFrameInterleaved16s();
   interleaved16s.setReferenceLevel(20); // Recommended receiving level per NDI docs
   interleaved16s.setData(ByteBuffer.allocateDirect((int) (SAMPLE_RATE / CLOCK_SPEED) * CHANNEL_COUNT * Short.BYTES));
 
   // Attach the frame-synchronizer to ensure audio is dynamically resampled based on request frequency
-  frameSync = new NDIP5FrameSync(receiver);
+  frameSync = new NDIFrameSync(receiver);
 }
 
 void draw() {
@@ -74,7 +74,7 @@ void draw() {
   frameSync.captureAudio(audioFrame, SAMPLE_RATE, CHANNEL_COUNT, (int) (SAMPLE_RATE / CLOCK_SPEED));
 
   // Convert the given float data to interleaved 16-bit signed data
-  NDIP5Utilities.planarFloatToInterleaved16s(audioFrame, interleaved16s);
+  NDIUtilities.planarFloatToInterleaved16s(audioFrame, interleaved16s);
 
   println("Received audio data: " + audioFrame.getSamples());
 

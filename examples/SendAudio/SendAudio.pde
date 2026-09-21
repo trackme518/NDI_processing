@@ -7,8 +7,8 @@ import ndi.stream.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-NDIP5Sender sender;
-NDIP5AudioFrame audioFrame;
+NDISender sender;
+NDIAudioFrame audioFrame;
 
 final int SAMPLE_RATE = 48000;
 final int CHANNEL_COUNT = 4;
@@ -25,13 +25,13 @@ void setup() {
   size(400, 300);
 
   // Create the sender, clocking the audio to match the sample rate
-  sender = new NDIP5Sender("NDI_p5 Processing Audio Example", null, false, true);
+  sender = new NDISender("NDI_p5 Processing Audio Example", null, false, true);
 
   // Audio is stored as planar 32-bit floating point data
   data = ByteBuffer.allocateDirect((SAMPLE_COUNT * CHANNEL_COUNT * Float.SIZE) / Byte.SIZE)
           .order(ByteOrder.LITTLE_ENDIAN);
 
-  audioFrame = new NDIP5AudioFrame();
+  audioFrame = new NDIAudioFrame();
   audioFrame.setSampleRate(SAMPLE_RATE);
   audioFrame.setChannels(CHANNEL_COUNT);
   audioFrame.setSamples(SAMPLE_COUNT);

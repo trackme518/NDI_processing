@@ -3,7 +3,7 @@
 // https://processing.github.io/processing-library-template/getting-started.html
 //
 // In addition to the template tasks (buildReleaseArtifacts, deployToProcessingSketchbook),
-// this build compiles the JNI natives in the "ndip5-natives" subproject and bundles them
+// this build compiles the JNI natives in the "ndistream-natives" subproject and bundles them
 // (together with the NDI runtime) inside the library jar.
 
 import java.util.Properties
@@ -94,7 +94,7 @@ repositories {
 
 dependencies {
     // NDIStream itself has no runtime dependencies - the NDI runtime and JNI bindings
-    // are bundled inside the library jar by the "ndip5-natives" subproject.
+    // are bundled inside the library jar by the "ndistream-natives" subproject.
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -130,7 +130,7 @@ val jniCompiler = javaToolchains.compilerFor {
     languageVersion.set(JavaLanguageVersion.of(17))
 }
 
-// Generate the C headers for the JNI bindings (consumed by the ndip5-natives subproject)
+// Generate the C headers for the JNI bindings (consumed by the ndistream-natives subproject)
 val generateJniHeaders by tasks.registering {
     description = "Generates C headers for the NDIStream JNI bindings with javac -h"
     group = "build"
@@ -166,11 +166,11 @@ artifacts {
     add("jniIncludes", generateJniHeaders)
 }
 
-// Pull the compiled native libraries (and the NDI runtime) from the ndip5-natives subproject
+// Pull the compiled native libraries (and the NDI runtime) from the ndistream-natives subproject
 val nativeArtifacts: Configuration by configurations.creating
 
 dependencies {
-    nativeArtifacts(project(":ndip5-natives", "nativeArtifacts"))
+    nativeArtifacts(project(":ndistream-natives", "nativeArtifacts"))
 }
 
 tasks.jar {

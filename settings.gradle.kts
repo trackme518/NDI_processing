@@ -1,3 +1,3 @@
 rootProject.name = "NDIStream"
 
-include("ndip5-natives")
+include("ndistream-natives")

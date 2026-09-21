@@ -4,24 +4,24 @@
 
 import ndi.stream.*;
 
-NDIP5Receiver receiver;
-NDIP5VideoFrame videoFrame;
-NDIP5AudioFrame audioFrame;
-NDIP5MetadataFrame metadataFrame;
+NDIReceiver receiver;
+NDIVideoFrame videoFrame;
+NDIAudioFrame audioFrame;
+NDIMetadataFrame metadataFrame;
 
 long startTime;
 
 void setup() {
   size(400, 300);
 
-  receiver = new NDIP5Receiver();
-  videoFrame = new NDIP5VideoFrame();
-  audioFrame = new NDIP5AudioFrame();
-  metadataFrame = new NDIP5MetadataFrame();
+  receiver = new NDIReceiver();
+  videoFrame = new NDIVideoFrame();
+  audioFrame = new NDIAudioFrame();
+  metadataFrame = new NDIMetadataFrame();
 
   // Find a source to connect to
-  NDIP5Source[] sources = null;
-  try (NDIP5Finder finder = new NDIP5Finder()) {
+  NDISource[] sources = null;
+  try (NDIFinder finder = new NDIFinder()) {
     while ((sources = finder.getCurrentSources()).length == 0) {
       println("Waiting for sources...");
       finder.waitForSources(5000);

@@ -4,10 +4,10 @@
 
 import ndi.stream.*;
 
-NDIP5Receiver receiver;
-NDIP5FrameSync frameSync;
-NDIP5VideoFrame videoFrame;
-NDIP5AudioFrame audioFrame;
+NDIReceiver receiver;
+NDIFrameSync frameSync;
+NDIVideoFrame videoFrame;
+NDIAudioFrame audioFrame;
 
 // Run at 30Hz
 final float CLOCK_SPEED = 30;
@@ -15,11 +15,11 @@ final float CLOCK_SPEED = 30;
 void setup() {
   size(400, 300);
 
-  receiver = new NDIP5Receiver();
+  receiver = new NDIReceiver();
 
   // Find a source to connect to
-  NDIP5Source[] sources = null;
-  try (NDIP5Finder finder = new NDIP5Finder()) {
+  NDISource[] sources = null;
+  try (NDIFinder finder = new NDIFinder()) {
     while ((sources = finder.getCurrentSources()).length == 0) {
       println("Waiting for sources...");
       finder.waitForSources(5000);
@@ -28,11 +28,11 @@ void setup() {
     receiver.connect(sources[0]);
   }
 
-  videoFrame = new NDIP5VideoFrame();
-  audioFrame = new NDIP5AudioFrame();
+  videoFrame = new NDIVideoFrame();
+  audioFrame = new NDIAudioFrame();
 
   // Attach the frame-synchronizer to ensure audio is dynamically resampled based on request frequency
-  frameSync = new NDIP5FrameSync(receiver);
+  frameSync = new NDIFrameSync(receiver);
 
   frameRate(CLOCK_SPEED);
 }

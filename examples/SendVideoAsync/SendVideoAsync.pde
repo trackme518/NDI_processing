@@ -9,8 +9,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-NDIP5Sender sender;
-NDIP5VideoFrame videoFrame;
+NDISender sender;
+NDIVideoFrame videoFrame;
 
 PGraphics canvas;
 
@@ -30,11 +30,11 @@ long fpsPeriod = 0;
 void setup() {
   size(640, 360);
 
-  sender = new NDIP5Sender("NDI_p5 Processing Async Example");
+  sender = new NDISender("NDI_p5 Processing Async Example");
 
-  videoFrame = new NDIP5VideoFrame();
+  videoFrame = new NDIVideoFrame();
   videoFrame.setResolution(VIDEO_WIDTH, VIDEO_HEIGHT);
-  videoFrame.setFourCCType(NDIP5FrameFourCCType.BGRA);
+  videoFrame.setFourCCType(NDIFrameFourCCType.BGRA);
   videoFrame.setLineStride(VIDEO_WIDTH * PIXEL_DEPTH);
   videoFrame.setFrameRate(VIDEO_FPS, 1);
 

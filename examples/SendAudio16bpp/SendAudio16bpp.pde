@@ -6,8 +6,8 @@ import ndi.stream.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-NDIP5Sender sender;
-NDIP5AudioFrameInterleaved16s audioFrame;
+NDISender sender;
+NDIAudioFrameInterleaved16s audioFrame;
 
 final int SAMPLE_RATE = 48000;
 final int CHANNEL_COUNT = 4;
@@ -23,13 +23,13 @@ int[] totalSamplesPerChannel = new int[CHANNEL_COUNT];
 void setup() {
   size(400, 300);
 
-  sender = new NDIP5Sender("NDI_p5 Processing Audio 16bpp Example", null, false, true);
+  sender = new NDISender("NDI_p5 Processing Audio 16bpp Example", null, false, true);
 
   // Interleaved 16-bit signed data: LRLRLR...
   data = ByteBuffer.allocateDirect((SAMPLE_COUNT * CHANNEL_COUNT * Short.SIZE) / Byte.SIZE)
           .order(ByteOrder.LITTLE_ENDIAN);
 
-  audioFrame = new NDIP5AudioFrameInterleaved16s();
+  audioFrame = new NDIAudioFrameInterleaved16s();
   audioFrame.setSampleRate(SAMPLE_RATE);
   audioFrame.setChannels(CHANNEL_COUNT);
   audioFrame.setSamples(SAMPLE_COUNT);
