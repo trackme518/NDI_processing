@@ -128,7 +128,8 @@ jobs:
           unzip -oq NDI_p5-allinone.zip NDI_p5/library.properties -d stab
           cp stab/NDI_p5/library.properties NDI_p5.txt
           cp NDI_p5-allinone.zip NDI_p5.zip
-          gh release upload "$TAG" NDI_p5.zip NDI_p5.txt -R "$GITHUB_REPOSITORY" --clobber
+          cp NDI_p5-allinone.pdex NDI_p5.pdex
+          gh release upload "$TAG" NDI_p5.zip NDI_p5.pdex NDI_p5.txt -R "$GITHUB_REPOSITORY" --clobber
       - name: Remove per-platform artifacts
         env:
           GH_TOKEN: ${{ github.token }}

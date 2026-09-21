@@ -256,7 +256,7 @@ tasks.register("buildReleaseArtifacts") {
         println("Copy additional artifacts...")
         copy {
             from(rootDir)
-            include("README.md", "readme/**", "library.properties", "examples/**", "src/**")
+            include("README.md", "readme/**", "library.properties", "LICENSE", "examples/**", "src/**")
 
             into(releaseDirectory)
             exclude("*.DS_Store", "**/networks/**")

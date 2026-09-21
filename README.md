@@ -16,6 +16,17 @@ This project is a fork of [Devolay](https://github.com/WalkerKnapp/devolay) by W
 copyright is retained by its author. The fork's additions and modifications are licensed under
 GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2.0 grant.
 
+**Library info**
+
+- **Download:** latest release - [`NDI_p5.zip`](https://github.com/trackme518/NDI_processing/releases/latest/download/NDI_p5.zip)
+- **Tested with:** Processing 4.x on macOS (Apple Silicon and Intel); Windows x86-64 and
+  Linux x86-64 are built and packaged with every release via GitHub Actions
+- **Dependencies:** none at runtime for the default all-in-one build (NDI runtime bundled);
+  the `system-runtime` variant requires the free
+  [NDI Runtime](https://ndi.video/tools/) installed on the system
+- **Keywords:** NDI, video, audio, network, IP video, streaming, sender, receiver, discovery, routing
+- **License:** GPL-3.0 (see [License](#license))
+
 ## Installation
 
 NDI_p5 is published in two release variants:
