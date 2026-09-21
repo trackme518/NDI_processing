@@ -1,6 +1,6 @@
 // ReceiveConsole: Connects to the first NDI source found on the network and prints
 // information about each received frame to the console.
-// Adapted from NDIlib_Recv_Video.cpp / the NDIP5 RecvExample.
+// Adapted from NDIlib_Recv_Video.cpp / the NDIStream RecvExample.
 
 import ndi.stream.*;
 

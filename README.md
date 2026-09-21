@@ -1,4 +1,4 @@
-# NDI_p5 for Processing
+# NDIStream for Processing
 
 A [Processing](https://processing.org) (4) library for sending and receiving video and audio over
 the network using the NewTek NDI® SDK. For more information about NDI®, see:
@@ -18,9 +18,10 @@ GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2
 
 **Library info**
 
-- **Download:** latest release - [`NDI_p5.zip`](https://github.com/trackme518/NDI_processing/releases/latest/download/NDI_p5.zip)
-- **Tested with:** Processing 4.x on macOS (Apple Silicon and Intel); Windows x86-64 and
-  Linux x86-64 are built and packaged with every release via GitHub Actions
+- **Download:** latest release - [`NDIStream.zip`](https://github.com/trackme518/NDI_processing/releases/latest/download/NDIStream.zip)
+- **Last updated:** September 2026 (v4.0.0)
+- **Tested with:** latest Processing version 4.4 on macOS (Apple Silicon and Intel);
+  Windows x86-64 and Linux x86-64 are built and packaged with every release via GitHub Actions
 - **Dependencies:** none at runtime for the default all-in-one build (NDI runtime bundled);
   the `system-runtime` variant requires the free
   [NDI Runtime](https://ndi.video/tools/) installed on the system
@@ -29,17 +30,17 @@ GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2
 
 ## Installation
 
-NDI_p5 is published in two release variants:
+NDIStream is published in two release variants:
 
-- **`NDI_p5-allinone.zip`** - the **default**. The NDI runtime (`libndi`) and native bindings are
+- **`NDIStream-allinone.zip`** - the **default**. The NDI runtime (`libndi`) and native bindings are
   bundled inside the library jar, so it works out of the box with no separate NDI install. For
   macOS this covers Apple Silicon and Intel from a single jar.
-- **`NDI_p5-system-runtime.zip`** - a fully GPL-3 distribution that ships **only** this library's
+- **`NDIStream-system-runtime.zip`** - a fully GPL-3 distribution that ships **only** this library's
   own code (no proprietary NDI binaries). It requires the free NDI Runtime to be installed on the
   machine. Choose this when you need a build free of the proprietary NDI runtime (see
   [License](#license)).
 
-Both install the same `NDI_p5` library - **do not install both** into the same sketchbook
+Both install the same `NDIStream` library - **do not install both** into the same sketchbook
 (duplicate classes on the classpath).
 
 ### Option 1: Install from this repository (Contribution Manager)
@@ -52,13 +53,13 @@ Both install the same `NDI_p5` library - **do not install both** into the same s
 ### Option 2: Manual install
 
 Run the gradle task `deployToProcessingSketchbook` (see [Building](#building)), or unzip
-`NDI_p5-allinone.zip` (or `NDI_p5-system-runtime.zip`) from the latest release into your
+`NDIStream-allinone.zip` (or `NDIStream-system-runtime.zip`) from the latest release into your
 Processing sketchbook's `libraries` folder:
 
 ```
-Documents/Processing/libraries/NDI_p5/
+Documents/Processing/libraries/NDIStream/
 ├── library.properties
-├── library/NDI_p5.jar
+├── library/NDIStream.jar
 ├── examples/...
 ├── reference/...
 └── src/...
@@ -113,9 +114,9 @@ void draw() {
 }
 ```
 
-NDI_p5 aims to be close to the original NDI SDK while still following Java standards and
+NDIStream aims to be close to the original NDI SDK while still following Java standards and
 conventions. The vast majority of applications can be simply translated from NDI SDK calls to
-NDI_p5 calls. Javadocs are in `reference/` (or run `./gradlew javadoc`).
+NDIStream calls. Javadocs are in `reference/` (or run `./gradlew javadoc`).
 
 ## Building
 
@@ -164,7 +165,7 @@ never bundle the runtime on any platform.
 
 ## License
 
-The NDI_p5 source code and everything in this repository are licensed under the
+The NDIStream source code and everything in this repository are licensed under the
 **GNU General Public License v3.0** (see [LICENSE](LICENSE)). This covers the Java library, the
 JNI bindings, the build scripts, and the examples.
 

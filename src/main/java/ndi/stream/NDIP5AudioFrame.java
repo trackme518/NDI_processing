@@ -10,7 +10,7 @@ public class NDIP5AudioFrame implements AutoCloseable {
 
     static {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
     }
 
     final long structPointer;
@@ -88,7 +88,7 @@ public class NDIP5AudioFrame implements AutoCloseable {
     }
 
     /**
-     * If a buffer is allocated by a NDIP5 process (e.g. {@link NDIP5Receiver#receiveCapture(NDIP5VideoFrame, NDIP5AudioFrame, NDIP5MetadataFrame, int)}), free the buffer.
+     * If a buffer is allocated by a NDIStream process (e.g. {@link NDIP5Receiver#receiveCapture(NDIP5VideoFrame, NDIP5AudioFrame, NDIP5MetadataFrame, int)}), free the buffer.
      * This allows a previously used frame to be reused in {@link  NDIP5Receiver#receiveCapture(NDIP5VideoFrame, NDIP5AudioFrame, NDIP5MetadataFrame, int)} or {@link NDIP5FrameSync#captureAudio(NDIP5AudioFrame, int, int, int)}
      */
     public void freeBuffer() {

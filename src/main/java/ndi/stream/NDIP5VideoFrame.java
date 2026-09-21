@@ -12,7 +12,7 @@ public class NDIP5VideoFrame implements AutoCloseable {
 
     public NDIP5VideoFrame() {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.structPointer = createNewVideoFrameDefaultSettings();
     }
@@ -97,7 +97,7 @@ public class NDIP5VideoFrame implements AutoCloseable {
     }
 
     /**
-     * If a buffer is allocated by a NDIP5 process (NDIP5Receiver#receiveCapture), free the buffer.
+     * If a buffer is allocated by a NDIStream process (NDIP5Receiver#receiveCapture), free the buffer.
      * This allows a previously used frame to be reused in NDIP5Receiver#receiveCapture
      */
     public void freeBuffer() {

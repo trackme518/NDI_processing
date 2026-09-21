@@ -11,7 +11,7 @@ public class NDIP5MetadataFrame implements AutoCloseable {
 
     public NDIP5MetadataFrame() {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.structPointer = createNewMetadataFrameDefaultSettings();
     }
@@ -34,7 +34,7 @@ public class NDIP5MetadataFrame implements AutoCloseable {
     }
 
     /**
-     * If a buffer is allocated by a NDIP5 process (NDIP5Receiver#receiveCapture), free the buffer.
+     * If a buffer is allocated by a NDIStream process (NDIP5Receiver#receiveCapture), free the buffer.
      * This allows a previously used frame to be reused in NDIP5Receiver#receiveCapture
      */
     public void freeBuffer() {

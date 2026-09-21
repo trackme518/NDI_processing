@@ -94,7 +94,7 @@ public class NDIP5Receiver extends NDIP5FrameCleaner implements AutoCloseable {
      */
     public NDIP5Receiver(NDIP5Source source, ColorFormat colorFormat, int receiveBandwidth, boolean allowVideoFields, String name) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndilibRecievePointer = receiveCreate(source.structPointer, colorFormat.id, receiveBandwidth, allowVideoFields, name);
     }
@@ -122,7 +122,7 @@ public class NDIP5Receiver extends NDIP5FrameCleaner implements AutoCloseable {
      */
     public NDIP5Receiver(ColorFormat colorFormat, int receiveBandwidth, boolean allowVideoFields, String name) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndilibRecievePointer = receiveCreate(0L, colorFormat.id, receiveBandwidth, allowVideoFields, name);
     }
@@ -135,7 +135,7 @@ public class NDIP5Receiver extends NDIP5FrameCleaner implements AutoCloseable {
      */
     public NDIP5Receiver() {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndilibRecievePointer = receiveCreateDefaultSettings();
     }

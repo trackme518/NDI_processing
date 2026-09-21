@@ -1,6 +1,6 @@
 // FrameSync: Receives from the first NDI source found using a frame-synchronizer,
 // which resamples audio and paces video so both arrive at a fixed rate.
-// Adapted from the NDIP5 FrameSyncExample / NDIlib_Recv_FrameSync.cpp.
+// Adapted from the NDIStream FrameSyncExample / NDIlib_Recv_FrameSync.cpp.
 
 import ndi.stream.*;
 

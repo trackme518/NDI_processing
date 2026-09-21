@@ -20,7 +20,7 @@ public class NDIP5Sender extends NDIP5FrameCleaner implements AutoCloseable {
      */
     public NDIP5Sender(String ndiName, String groups, boolean clockVideo, boolean clockAudio) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndilibSendInstancePointer = sendCreate(ndiName, groups, clockVideo, clockAudio);
     }

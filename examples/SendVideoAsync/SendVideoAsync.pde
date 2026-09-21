@@ -1,7 +1,7 @@
 // SendVideoAsync: Sends this sketch's visuals out as an NDI source using the
 // asynchronous frame submission, which returns immediately instead of waiting
 // for the frame to be sent.
-// Adapted from the NDIP5 SendVideoAsyncExample.
+// Adapted from the NDIStream SendVideoAsyncExample.
 
 import ndi.stream.*;
 

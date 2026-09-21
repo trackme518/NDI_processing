@@ -3,7 +3,7 @@ package ndi.stream;
 public class NDIP5FrameSync extends NDIP5FrameCleaner implements AutoCloseable {
     static {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
     }
 
     /**

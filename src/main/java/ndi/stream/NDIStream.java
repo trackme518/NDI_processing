@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class NDIP5 {
+public class NDIStream {
 
     private static final AtomicBoolean librariesLoaded = new AtomicBoolean(false);
     private static String extractedNdiLibraryPath = null;
@@ -29,7 +29,7 @@ public class NDIP5 {
                     "/natives/" + osDirectory + "/" + archDirectory + "/" + ndiLibraryName);
 
             if (devolayNativesPath == null) {
-                throw new IllegalStateException("This build of NDIP5 is not compiled for your OS. Please use a different build or follow the compilation instructions on https://github.com/WalkerKnapp/devolay.");
+                throw new IllegalStateException("This build of NDIStream is not compiled for your OS. Please use a different build or follow the compilation instructions on https://github.com/WalkerKnapp/devolay.");
             }
 
             if (ndiLibraryPath != null) {
@@ -38,7 +38,7 @@ public class NDIP5 {
 
             System.load(devolayNativesPath.toAbsolutePath().toString());
         } else {
-            // NDIP5 on Android should be loaded as an aar, so natives don't have to be extracted.
+            // NDIStream on Android should be loaded as an aar, so natives don't have to be extracted.
             System.loadLibrary("ndip5-natives");
             extractedNdiLibraryPath = findLibrary("ndi");
         }
@@ -55,11 +55,11 @@ public class NDIP5 {
             }
         } catch (UnsatisfiedLinkError e) {
             if (osDirectory.equals("android")) {
-                throw new IllegalStateException("NDIP5 natives failed to load correctly." +
+                throw new IllegalStateException("NDIStream natives failed to load correctly." +
                         " Please ensure that you are using the android-specific builds!" +
                         " See https://github.com/WalkerKnapp/devolay#android-builds.", e);
             } else {
-                throw new IllegalStateException("NDIP5 natives failed to load correctly. This is likely because this build of NDIP5 is not compiled for your OS." +
+                throw new IllegalStateException("NDIStream natives failed to load correctly. This is likely because this build of NDIStream is not compiled for your OS." +
                         " Please use a different build or follow the compilation instructions on https://github.com/WalkerKnapp/devolay.", e);
             }
         }
@@ -97,7 +97,7 @@ public class NDIP5 {
     }
 
     private static Path extractNative(String prefix, String suffix, String pathInJar) {
-        try(InputStream is = NDIP5.class.getResourceAsStream(pathInJar)) {
+        try(InputStream is = NDIStream.class.getResourceAsStream(pathInJar)) {
             if(is == null) {
                return null;
             }
@@ -135,7 +135,7 @@ public class NDIP5 {
         try {
             Method findLibraryHandle = ClassLoader.class.getDeclaredMethod("findLibrary", String.class);
             findLibraryHandle.setAccessible(true);
-            return (String) findLibraryHandle.invoke(NDIP5.class.getClassLoader(), libraryName);
+            return (String) findLibraryHandle.invoke(NDIStream.class.getClassLoader(), libraryName);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             return null;
         }
@@ -176,7 +176,7 @@ public class NDIP5 {
     }
 
     /**
-     * Returns whether the current CPU in the system is capable of running NDI(tm), and by extension, NDIP5.
+     * Returns whether the current CPU in the system is capable of running NDI(tm), and by extension, NDIStream.
      *
      * @return true if the system's CPU is capable of running NDI(tm), false if it is not capable.
      */

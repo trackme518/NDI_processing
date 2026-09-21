@@ -14,7 +14,7 @@ public class NDIP5PerformanceData implements AutoCloseable {
      */
     public NDIP5PerformanceData() {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.totalPerformanceStructPointer = createPerformanceStruct();
         this.droppedPerformanceStructPointer = createPerformanceStruct();

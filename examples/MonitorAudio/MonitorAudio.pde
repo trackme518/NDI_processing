@@ -1,7 +1,7 @@
 // MonitorAudio: Receives the first NDI source found on the network and plays its
 // audio through the computer's speakers using javax.sound, with a frame-synchronizer
 // keeping audio and video aligned.
-// Adapted from the NDIP5 MonitorExample.
+// Adapted from the NDIStream MonitorExample.
 
 import ndi.stream.*;
 

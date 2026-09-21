@@ -1,6 +1,6 @@
 // SendAudio: Sends generated audio (a C6 chord arpeggio) as NDI audio, synchronized
 // with the video from the SendVideo example.
-// Adapted from the NDIP5 SendAudioExample.
+// Adapted from the NDIStream SendAudioExample.
 
 import ndi.stream.*;
 

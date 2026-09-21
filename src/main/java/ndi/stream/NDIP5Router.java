@@ -17,7 +17,7 @@ public class NDIP5Router implements AutoCloseable {
      */
     public NDIP5Router(String ndiName, String groups) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndiLibRoutingInstancePointer = routingCreate(ndiName, groups);
     }

@@ -1,4 +1,4 @@
-// This Gradle script builds NDI_p5 as a Processing 4 library,
+// This Gradle script builds NDIStream as a Processing 4 library,
 // following the processing-library-template conventions:
 // https://processing.github.io/processing-library-template/getting-started.html
 //
@@ -45,7 +45,7 @@ version = if (project.hasProperty("githubReleaseTag")) {
 // Such as:
 // <libName>.jar will be the name of your build jar
 // <libName>.zip will be the name of your release file
-val libName = "NDI_p5"
+val libName = "NDIStream"
 
 // The release variant:
 //   allinone       - the jar bundles the NDI runtime (libndi) - works out of the box,
@@ -59,7 +59,7 @@ require(variant == "allinone" || variant == "system-runtime") {
 }
 
 // The group ID of the library, which uniquely identifies the project.
-group = "p5"
+group = "ndi"
 
 // The location of your sketchbook folder. The sketchbook folder holds your installed
 // libraries, tools, and modes.
@@ -93,7 +93,7 @@ repositories {
 }
 
 dependencies {
-    // NDI_p5 itself has no runtime dependencies - the NDI runtime and JNI bindings
+    // NDIStream itself has no runtime dependencies - the NDI runtime and JNI bindings
     // are bundled inside the library jar by the "ndip5-natives" subproject.
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
@@ -132,7 +132,7 @@ val jniCompiler = javaToolchains.compilerFor {
 
 // Generate the C headers for the JNI bindings (consumed by the ndip5-natives subproject)
 val generateJniHeaders by tasks.registering {
-    description = "Generates C headers for the NDI_p5 JNI bindings with javac -h"
+    description = "Generates C headers for the NDIStream JNI bindings with javac -h"
     group = "build"
 
     val headersDir = layout.buildDirectory.dir("generated/jniHeaders")

@@ -20,7 +20,7 @@
 #include <filesystem.hpp>
 namespace fs = ghc::filesystem;
 
-#include "ndi_stream_NDIP5.h"
+#include "ndi_stream_NDIStream.h"
 
 static const NDIlib_v3 *ndiLib = (NDIlib_v3 *)calloc(1, sizeof(NDIlib_v3));
 
@@ -28,7 +28,7 @@ const NDIlib_v3 *getNDILib() {
     return ndiLib;
 }
 
-JNIEXPORT jint JNICALL Java_ndi_stream_NDIP5_nLoadLibraries(JNIEnv * env, jclass jClazz, jstring jNdiLibraryPath) {
+JNIEXPORT jint JNICALL Java_ndi_stream_NDIStream_nLoadLibraries(JNIEnv * env, jclass jClazz, jstring jNdiLibraryPath) {
     std::vector<fs::path> locations;
 
     char *redistFolder = getenv(NDILIB_REDIST_FOLDER);
@@ -111,10 +111,10 @@ JNIEXPORT jint JNICALL Java_ndi_stream_NDIP5_nLoadLibraries(JNIEnv * env, jclass
     return -1;
 }
 
-JNIEXPORT jstring JNICALL Java_ndi_stream_NDIP5_nGetVersion(JNIEnv *env, jclass jClazz) {
+JNIEXPORT jstring JNICALL Java_ndi_stream_NDIStream_nGetVersion(JNIEnv *env, jclass jClazz) {
     return env->NewStringUTF(getNDILib()->version());
 }
 
-JNIEXPORT jboolean JNICALL Java_ndi_stream_NDIP5_nIsSupportedCpu(JNIEnv *env, jclass jClazz) {
+JNIEXPORT jboolean JNICALL Java_ndi_stream_NDIStream_nIsSupportedCpu(JNIEnv *env, jclass jClazz) {
     return getNDILib()->is_supported_CPU();
 }

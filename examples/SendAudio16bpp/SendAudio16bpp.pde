@@ -1,5 +1,5 @@
 // SendAudio16bpp: Sends generated audio as interleaved 16-bit signed NDI audio.
-// Adapted from the NDIP5 SendAudio16bppExample.
+// Adapted from the NDIStream SendAudio16bppExample.
 
 import ndi.stream.*;
 

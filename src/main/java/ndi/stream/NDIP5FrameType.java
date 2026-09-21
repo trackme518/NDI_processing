@@ -1,7 +1,7 @@
 package ndi.stream;
 
 /**
- * Represents the type of an arbitrary frame provided by NDIP5.
+ * Represents the type of an arbitrary frame provided by NDIStream.
  */
 public enum NDIP5FrameType {
     NONE(0),

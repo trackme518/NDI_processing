@@ -15,7 +15,7 @@ public class NDIP5Source implements AutoCloseable {
      */
     NDIP5Source(long pointer) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.isClosed = new AtomicBoolean(false);
         this.structPointer = pointer;

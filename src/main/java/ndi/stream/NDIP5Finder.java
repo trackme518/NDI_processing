@@ -17,7 +17,7 @@ public class NDIP5Finder implements AutoCloseable {
      */
     public NDIP5Finder(boolean showLocalSources, String groups, String extraIps) {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndiLibFindInstancePointer = findCreate(showLocalSources, groups, extraIps);
     }
@@ -47,7 +47,7 @@ public class NDIP5Finder implements AutoCloseable {
      */
     public NDIP5Finder() {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
 
         this.ndiLibFindInstancePointer = findCreateDefaultSettings();
     }

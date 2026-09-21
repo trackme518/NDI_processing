@@ -9,7 +9,7 @@ public class NDIP5AudioFrameInterleaved32f implements AutoCloseable {
 
     static {
         // TODO: Implement this forced reference more effectively
-        NDIP5.loadLibraries();
+        NDIStream.loadLibraries();
     }
 
     final long structPointer;

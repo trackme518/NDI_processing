@@ -79,16 +79,16 @@ jobs:
       - name: Rename per-platform artifacts
         shell: pwsh
         run: |
-          Move-Item release/NDI_p5-${{ matrix.variant }}.zip release/NDI_p5-${{ matrix.platform.id }}-${{ matrix.variant }}.zip
-          Move-Item release/NDI_p5-${{ matrix.variant }}.pdex release/NDI_p5-${{ matrix.platform.id }}-${{ matrix.variant }}.pdex
+          Move-Item release/NDIStream-${{ matrix.variant }}.zip release/NDIStream-${{ matrix.platform.id }}-${{ matrix.variant }}.zip
+          Move-Item release/NDIStream-${{ matrix.variant }}.pdex release/NDIStream-${{ matrix.platform.id }}-${{ matrix.variant }}.pdex
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
           files: |
-            release/NDI_p5-${{ matrix.platform.id }}-${{ matrix.variant }}.zip
-            release/NDI_p5-${{ matrix.platform.id }}-${{ matrix.variant }}.pdex
+            release/NDIStream-${{ matrix.platform.id }}-${{ matrix.variant }}.zip
+            release/NDIStream-${{ matrix.platform.id }}-${{ matrix.variant }}.pdex
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -103,33 +103,33 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p 'NDI_p5-*.zip' -D dl
+          gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p 'NDIStream-*.zip' -D dl
           for variant in allinone system-runtime; do
             rm -rf work all tmp-linux tmp-windows; mkdir -p work all
             # macOS is the base (its jar already carries arm64 + x86-64 slices).
-            unzip -oq "dl/NDI_p5-macos-${variant}.zip" -d work
-            jar="$(pwd)/work/NDI_p5/library/NDI_p5.jar"
+            unzip -oq "dl/NDIStream-macos-${variant}.zip" -d work
+            jar="$(pwd)/work/NDIStream/library/NDIStream.jar"
             for p in linux windows; do
               case "$p" in linux) pkg=linux-x86-64;; windows) pkg=windows-x86-64;; esac
-              unzip -oq "dl/NDI_p5-${pkg}-${variant}.zip" NDI_p5/library/NDI_p5.jar -d "tmp-${p}"
-              unzip -oq "tmp-${p}/NDI_p5/library/NDI_p5.jar" 'natives/*' -d all
+              unzip -oq "dl/NDIStream-${pkg}-${variant}.zip" NDIStream/library/NDIStream.jar -d "tmp-${p}"
+              unzip -oq "tmp-${p}/NDIStream/library/NDIStream.jar" 'natives/*' -d all
             done
             # One jar with natives/macos + natives/linux + natives/windows;
             # NDIP5.java extracts the slice matching the running OS/arch.
             # allinone natives include the bundled NDI runtime; system-runtime ships only ours.
             (cd all && zip -q -r -u "$jar" natives)
-            (cd work && zip -qr "../NDI_p5-${variant}.zip" NDI_p5)
-            cp "NDI_p5-${variant}.zip" "NDI_p5-${variant}.pdex"
-            gh release upload "$TAG" "NDI_p5-${variant}.zip" "NDI_p5-${variant}.pdex" -R "$GITHUB_REPOSITORY" --clobber
+            (cd work && zip -qr "../NDIStream-${variant}.zip" NDIStream)
+            cp "NDIStream-${variant}.zip" "NDIStream-${variant}.pdex"
+            gh release upload "$TAG" "NDIStream-${variant}.zip" "NDIStream-${variant}.pdex" -R "$GITHUB_REPOSITORY" --clobber
           done
           # Stable-name artifacts for the Processing Contribution Manager:
-          # NDI_p5.txt + NDI_p5.zip must keep the same URL across releases.
+          # NDIStream.txt + NDIStream.zip must keep the same URL across releases.
           # The default allinone build is registered.
-          unzip -oq NDI_p5-allinone.zip NDI_p5/library.properties -d stab
-          cp stab/NDI_p5/library.properties NDI_p5.txt
-          cp NDI_p5-allinone.zip NDI_p5.zip
-          cp NDI_p5-allinone.pdex NDI_p5.pdex
-          gh release upload "$TAG" NDI_p5.zip NDI_p5.pdex NDI_p5.txt -R "$GITHUB_REPOSITORY" --clobber
+          unzip -oq NDIStream-allinone.zip NDIStream/library.properties -d stab
+          cp stab/NDIStream/library.properties NDIStream.txt
+          cp NDIStream-allinone.zip NDIStream.zip
+          cp NDIStream-allinone.pdex NDIStream.pdex
+          gh release upload "$TAG" NDIStream.zip NDIStream.pdex NDIStream.txt -R "$GITHUB_REPOSITORY" --clobber
       - name: Remove per-platform artifacts
         env:
           GH_TOKEN: ${{ github.token }}
@@ -138,7 +138,7 @@ jobs:
           for id in macos linux-x86-64 windows-x86-64; do
             for variant in allinone system-runtime; do
               for ext in zip pdex; do
-                gh release delete-asset "$TAG" "NDI_p5-$id-$variant.$ext" -R "$GITHUB_REPOSITORY" --yes
+                gh release delete-asset "$TAG" "NDIStream-$id-$variant.$ext" -R "$GITHUB_REPOSITORY" --yes
               done
             done
           done

@@ -1,6 +1,6 @@
 // Routing: Creates a new NDI source that routes (switches) between the sources found
 // on the network. Useful for building a software switcher.
-// Adapted from the NDIP5 RoutingExample.
+// Adapted from the NDIStream RoutingExample.
 
 import ndi.stream.*;
 
