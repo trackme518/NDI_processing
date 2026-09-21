@@ -1,0 +1,18 @@
+*/build/
+/build/
+/.gradle/
+/.idea/
+
+# Repository-local build toolchain (JDK 17 + Gradle) and NDI SDK - downloaded, not committed
+/.toolchain/
+/.gradle-home/
+/NDI SDK for Windows/
+/NDI SDK for Android/
+/NDI SDK for Apple/
+/NDI SDK for Linux/
+
+# Release artifacts
+/release/
+/library.properties
+/gradle-dist/
+.DS_Store

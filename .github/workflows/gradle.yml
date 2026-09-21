@@ -1,0 +1,72 @@
+name: Java CI with Gradle
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            id: linux-x86-64
+          - os: macos-13
+            id: macos-x86-64
+          - os: macos-latest
+            id: macos-arm64
+          - os: windows-latest
+            id: windows-x86-64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up MSVC developer environment
+        if: matrix.os == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Setup the NDI SDK (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          wget https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v5_Linux.tar.gz && tar -xvf Install_NDI_SDK_v5_Linux.tar.gz
+          sed -i 's/read -p/cat/g' Install_NDI_SDK_v5_Linux.sh
+          PAGER=cat REPLY=y ./Install_NDI_SDK_v5_Linux.sh
+          echo "NDI_SDK_DIR=$PWD/NDI SDK for Linux" >> "$GITHUB_ENV"
+
+      - name: Setup the NDI SDK (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install p7zip
+          wget https://downloads.ndi.tv/SDK/NDI_SDK_Mac/Install_NDI_SDK_v5_macOS.pkg
+          7z x Install_NDI_SDK_v5_macOS.pkg
+          7z x Payload~
+          mv "NDI SDK for macOS" "NDI SDK for Apple"
+          rm Install_NDI_SDK_v5_macOS.pkg Payload~
+
+      - name: Setup the NDI SDK (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          Invoke-WebRequest https://downloads.ndi.tv/SDK/NDI_SDK/NDI%205%20SDK.exe -OutFile "NDI 5 SDK.exe"
+          7z x "NDI 5 SDK.exe" -o"NDI SDK for Windows"
+          Remove-Item "NDI 5 SDK.exe"
+
+      - name: Grant execute permission for gradlew
+        if: matrix.os != 'windows-latest'
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: devolay-${{ matrix.id }}
+          path: build/libs/*.jar
