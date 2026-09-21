@@ -1,4 +1,4 @@
-# NDIStream for Processing
+# NDI Stream for Processing
 
 A [Processing](https://processing.org) (4) library for sending and receiving video and audio over
 the network using the NewTek NDI® SDK. For more information about NDI®, see:
