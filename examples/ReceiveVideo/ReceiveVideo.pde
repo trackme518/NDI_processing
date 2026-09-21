@@ -11,8 +11,9 @@ PImage videoImage;
 void setup() {
   size(1280, 720);
 
-  // Receive the video in the RGBA color format, which maps directly to PImage pixels
-  receiver = new NDIReceiver(NDIReceiver.ColorFormat.RGBX_RGBA, 100, false, "NDI_p5 Processing Example");
+  // Receive the video in the BGRA/BGRX color format: in little-endian memory these bytes
+  // are exactly the 0xAARRGGBB ints of PImage.pixels, so the copy below is a single bulk copy
+  receiver = new NDIReceiver(NDIReceiver.ColorFormat.BGRX_BGRA, 100, false, "NDI Stream Processing Example");
   videoFrame = new NDIVideoFrame();
 
   // Find a source to connect to
@@ -41,17 +42,8 @@ void draw() {
       videoImage = createImage(w, h, ARGB);
     }
 
-    // Copy the RGBA frame data into the PImage
-    java.nio.ByteBuffer data = videoFrame.getData();
-    data.rewind();
-    videoImage.loadPixels();
-    for (int i = 0; i < w * h; i++) {
-      int r = data.get() & 0xFF;
-      int g = data.get() & 0xFF;
-      int b = data.get() & 0xFF;
-      int a = data.get() & 0xFF;
-      videoImage.pixels[i] = (a << 24) | (r << 16) | (g << 8) | b;
-    }
+    // Bulk-copy the BGRA frame data into the PImage pixels (no per-pixel conversion)
+    NDIUtilities.copyBufferToPixels(videoFrame.getData(), videoImage.pixels);
     videoImage.updatePixels();
   }
 
