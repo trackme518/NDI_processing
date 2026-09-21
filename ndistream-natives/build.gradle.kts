@@ -54,9 +54,6 @@ fun locateNdiSdk(): Path? {
     }
 
     // Check typical install locations
-    if (ndiSdk == null && OperatingSystem.current().isWindows && file("C:/Program Files/NDI 5 SDK").exists()) {
-        ndiSdk = file("C:/Program Files/NDI 5 SDK").toPath()
-    }
     if (ndiSdk == null && OperatingSystem.current().isWindows && file("C:/Program Files/NDI SDK").exists()) {
         ndiSdk = file("C:/Program Files/NDI SDK").toPath()
     }
@@ -73,9 +70,6 @@ fun locateNdiSdk(): Path? {
     }
     if (ndiSdk == null && file("../NDI SDK for Apple").exists()) {
         ndiSdk = file("../NDI SDK for Apple").toPath()
-    }
-    if (ndiSdk == null && file("../NDI 5 SDK").exists()) {
-        ndiSdk = file("../NDI 5 SDK").toPath()
     }
 
     if (ndiSdk == null) {

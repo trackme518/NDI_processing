@@ -35,28 +35,32 @@ jobs:
       - name: Setup the NDI SDK (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          wget https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v5_Linux.tar.gz && tar -xvf Install_NDI_SDK_v5_Linux.tar.gz
-          sed -i 's/read -p/cat/g' Install_NDI_SDK_v5_Linux.sh
-          PAGER=cat REPLY=y ./Install_NDI_SDK_v5_Linux.sh
+          wget https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz && tar -xvf Install_NDI_SDK_v6_Linux.tar.gz
+          sed -i 's/read -p/cat/g' Install_NDI_SDK_v6_Linux.sh
+          PAGER=cat REPLY=y ./Install_NDI_SDK_v6_Linux.sh
           echo "NDI_SDK_DIR=$PWD/NDI SDK for Linux" >> "$GITHUB_ENV"
 
       - name: Setup the NDI SDK (macOS)
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install p7zip
-          wget https://downloads.ndi.tv/SDK/NDI_SDK_Mac/Install_NDI_SDK_v5_macOS.pkg
-          7z x Install_NDI_SDK_v5_macOS.pkg
+          wget https://downloads.ndi.tv/SDK/NDI_SDK_Mac/Install_NDI_SDK_v6_Apple.pkg
+          7z x Install_NDI_SDK_v6_Apple.pkg
           7z x Payload~
-          mv "NDI SDK for macOS" "NDI SDK for Apple"
-          rm Install_NDI_SDK_v5_macOS.pkg Payload~
+          [ -d "NDI SDK for macOS" ] && mv "NDI SDK for macOS" "NDI SDK for Apple" || true
+          rm Install_NDI_SDK_v6_Apple.pkg Payload~
 
       - name: Setup the NDI SDK (Windows)
         if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
-          Invoke-WebRequest https://downloads.ndi.tv/SDK/NDI_SDK/NDI%205%20SDK.exe -OutFile "NDI 5 SDK.exe"
-          7z x "NDI 5 SDK.exe" -o"NDI SDK for Windows"
-          Remove-Item "NDI 5 SDK.exe"
+          Invoke-WebRequest https://downloads.ndi.tv/SDK/NDI_SDK/NDI%206%20SDK.exe -OutFile "NDI SDK.exe"
+          # Bundled 7-Zip cannot unpack this Inno Setup installer; use innoextract instead
+          Invoke-WebRequest https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-windows.zip -OutFile innoextract.zip
+          Expand-Archive innoextract.zip -DestinationPath innoextract
+          ./innoextract/innoextract.exe --extract --output "NDI SDK for Windows" "NDI SDK.exe"
+          Remove-Item "NDI SDK.exe", "innoextract.zip"
+          echo "NDI_SDK_DIR=$PWD/NDI SDK for Windows/app" >> $env:GITHUB_ENV
 
       - name: Grant execute permission for gradlew
         if: matrix.os != 'windows-latest'
