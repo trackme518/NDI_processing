@@ -122,6 +122,13 @@ jobs:
             cp "NDI_p5-${variant}.zip" "NDI_p5-${variant}.pdex"
             gh release upload "$TAG" "NDI_p5-${variant}.zip" "NDI_p5-${variant}.pdex" -R "$GITHUB_REPOSITORY" --clobber
           done
+          # Stable-name artifacts for the Processing Contribution Manager:
+          # NDI_p5.txt + NDI_p5.zip must keep the same URL across releases.
+          # The default allinone build is registered.
+          unzip -oq NDI_p5-allinone.zip NDI_p5/library.properties -d stab
+          cp stab/NDI_p5/library.properties NDI_p5.txt
+          cp NDI_p5-allinone.zip NDI_p5.zip
+          gh release upload "$TAG" NDI_p5.zip NDI_p5.txt -R "$GITHUB_REPOSITORY" --clobber
       - name: Remove per-platform artifacts
         env:
           GH_TOKEN: ${{ github.token }}
