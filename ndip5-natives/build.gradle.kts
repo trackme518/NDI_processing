@@ -98,6 +98,13 @@ val currentOs = when {
     else -> throw IllegalStateException("Unsupported host OS for natives build")
 }
 
+// Release variant. "allinone" (default) bundles the NDI runtime (libndi) into the jar.
+// "system-runtime" ships only this library's own GPL-3 code and JNI bindings, so the jar
+// stays free of proprietary NDI binaries and relies on a runtime installed on the user's
+// system. The NDI SDK is still required at build time for its headers.
+val variant = (findProperty("variant") ?: "allinone").toString()
+val bundleNdiRuntime = variant != "system-runtime"
+
 val nativeOutDir = layout.buildDirectory.dir("nativeArtifacts")
 
 data class NativeTarget(val archDir: String, val compilerArgs: List<String>)
@@ -220,10 +227,22 @@ val assembleNativeArtifacts by tasks.registering(Jar::class) {
     archiveBaseName.set("ndip5-native-artifacts")
     destinationDirectory.set(layout.buildDirectory.dir("libs"))
 
-    from(nativeOutDir)
+    inputs.property("bundleNdiRuntime", bundleNdiRuntime)
+
+    from(nativeOutDir) {
+        if (!bundleNdiRuntime) {
+            // system-runtime: strip any NDI runtime files (also stale copies in the output dir)
+            exclude("**/libndi.*", "**/libndi_licenses.txt", "**/ndi.dll", "**/Processing.NDI.Lib.Licenses.txt")
+        }
+    }
 
     doFirst {
-        // Bundle the NDI runtime (the "integrated" build) so the Processing library
+        if (!bundleNdiRuntime) {
+            logger.lifecycle("Variant 'system-runtime': bundling no NDI runtime; " +
+                    "the library will require the system NDI runtime at run-time.")
+            return@doFirst
+        }
+        // Bundle the NDI runtime (the "allinone" build) so the Processing library
         // is self-contained and does not require a separate NDI runtime install.
         for (target in hostTargets) {
             val runtimeFiles = ndiRuntimeFiles(target.archDir)

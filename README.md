@@ -18,19 +18,31 @@ GPL-3.0 (see [LICENSE](LICENSE)), which is compatible with the original Apache-2
 
 ## Installation
 
-The NDI runtime and native bindings are bundled inside the library jar for macOS
-(Apple Silicon and Intel), so no separate NDI installation is needed there.
+NDI_p5 is published in two release variants:
+
+- **`NDI_p5-allinone.zip`** - the **default**. The NDI runtime (`libndi`) and native bindings are
+  bundled inside the library jar, so it works out of the box with no separate NDI install. For
+  macOS this covers Apple Silicon and Intel from a single jar.
+- **`NDI_p5-system-runtime.zip`** - a fully GPL-3 distribution that ships **only** this library's
+  own code (no proprietary NDI binaries). It requires the free NDI Runtime to be installed on the
+  machine. Choose this when you need a build free of the proprietary NDI runtime (see
+  [License](#license)).
+
+Both install the same `NDI_p5` library - **do not install both** into the same sketchbook
+(duplicate classes on the classpath).
 
 ### Option 1: Install from this repository (Contribution Manager)
 
 1. Open Processing and go to `Sketch` > `Import Library...` > `Add Library...`
 2. In the Contribution Manager, click the `Settings` tab and add this repository's
    `library.properties` URL (or the raw URL of this repo) as a custom library source.
+   The Contribution Manager entry points at the default `allinone` build.
 
 ### Option 2: Manual install
 
 Run the gradle task `deployToProcessingSketchbook` (see [Building](#building)), or unzip
-`NDI_p5.zip` from the latest release into your Processing sketchbook's `libraries` folder:
+`NDI_p5-allinone.zip` (or `NDI_p5-system-runtime.zip`) from the latest release into your
+Processing sketchbook's `libraries` folder:
 
 ```
 Documents/Processing/libraries/NDI_p5/
@@ -116,12 +128,28 @@ installed globally.
 ./gradlew javadoc                      # generate reference docs
 ```
 
+### Release variants
+
+`buildReleaseArtifacts` selects the distribution with `-Pvariant`:
+
+```
+./gradlew buildReleaseArtifacts                        # allinone (default): bundles the NDI runtime
+./gradlew buildReleaseArtifacts -Pvariant=system-runtime  # GPL-3 only: relies on an installed NDI runtime
+```
+
+- **allinone** - bundles the NDI runtime (`libndi`) into the jar for out-of-the-box use. The jar is
+  an aggregate of GPL-3 code and proprietary NDI binaries (see [License](#license)).
+- **system-runtime** - bundles only this library's own code and JNI bindings, so the jar is fully
+  GPL-3. It requires the free NDI Runtime to be installed on the user's system. The NDI SDK is
+  still needed at build time to compile the JNI bindings against its headers.
+
 macOS builds on Apple Silicon produce both `arm64` and `x86-64` slices of the JNI library, and the
 bundled `libndi.dylib` from the NDI SDK is universal, so the jar works on both Apple Silicon and
 Intel Macs (including the native arm64 build of Processing 4).
 
-Linux and Windows builds bundle the NDI runtime the same way when the SDK is found at build time;
-otherwise a system NDI runtime install is required at run time.
+Linux and Windows `allinone` builds bundle the NDI runtime the same way when the SDK is found at
+build time; otherwise a system NDI runtime install is required at run time. `system-runtime` builds
+never bundle the runtime on any platform.
 
 ## License
 
@@ -131,12 +159,16 @@ JNI bindings, the build scripts, and the examples.
 
 ## ⚠️Licensing Considerations⚠️
 
-The GPL-3 license covers **our code only**. The binaries published in the GitHub releases are an
-"integrated" distribution: the jar also bundles the **proprietary NDI runtime** (`libndi.dylib` /
-`libndi.so` / `ndi.dll`) from the NDI SDK. Those binaries are **not** GPL-licensed; they remain
-under the separate, proprietary NDI SDK / NDI Runtime License Agreement you accept when you
-install the SDK or runtime, and the two parts are distributed as an aggregate with license terms
-separated per file.
+The GPL-3 license covers **our code only**. Of the two release variants (see [Installation](#installation)):
+
+- The **`system-runtime`** jar contains **only** our GPL-3 code (Java + our JNI bindings) and
+  bundles **no** proprietary NDI binaries - it is fully GPL-3 and relies on an NDI Runtime
+  installed separately on the user's system.
+- The **`allinone`** jar (the default) additionally bundles the **proprietary NDI runtime**
+  (`libndi.dylib` / `libndi.so` / `ndi.dll`) from the NDI SDK so it works out of the box. Those
+  runtime binaries are **not** GPL-licensed; they remain under the separate, proprietary NDI SDK /
+  NDI Runtime License Agreement you accept when you install the SDK or runtime. The two parts are
+  distributed as an aggregate with license terms separated per file.
 
 If you **build from source**, the resulting artifacts contain no NDI binaries from us: our code
 stays plain GPL-3. Note however that compiling the JNI bindings requires the NDI SDK headers

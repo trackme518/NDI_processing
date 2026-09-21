@@ -47,6 +47,17 @@ version = if (project.hasProperty("githubReleaseTag")) {
 // <libName>.zip will be the name of your release file
 val libName = "NDI_p5"
 
+// The release variant:
+//   allinone       - the jar bundles the NDI runtime (libndi) - works out of the box,
+//                    but the shipped binaries mix GPL-3 code with proprietary NDI binaries.
+//   system-runtime - fully GPL-3: the jar ships only this library's own code and JNI
+//                    bindings; the NDI runtime must be installed on the user's system.
+// Select with -Pvariant=system-runtime (default is allinone).
+val variant = (project.findProperty("variant") ?: "allinone").toString()
+require(variant == "allinone" || variant == "system-runtime") {
+    "Unknown variant '$variant' - must be 'allinone' or 'system-runtime'"
+}
+
 // The group ID of the library, which uniquely identifies the project.
 group = "p5"
 
@@ -186,7 +197,11 @@ tasks.register<WriteProperties>("writeLibraryProperties") {
     property("url", libraryProperties.getProperty("url"))
     property("categories", libraryProperties.getProperty("categories"))
     property("sentence", libraryProperties.getProperty("sentence"))
-    property("paragraph", libraryProperties.getProperty("paragraph"))
+    val variantNote = if (variant == "system-runtime")
+        " This is the 'system-runtime' variant: it contains only GPL-3 licensed code and requires the free NDI Runtime to be installed on your system."
+    else
+        " This is the default 'allinone' variant: the NDI runtime is bundled for out-of-the-box use."
+    property("paragraph", libraryProperties.getProperty("paragraph") + variantNote)
     property("minRevision", libraryProperties.getProperty("minRevision"))
     property("maxRevision", libraryProperties.getProperty("maxRevision"))
 }
@@ -262,7 +277,7 @@ tasks.register<Zip>("packageRelease") {
     doFirst {
         println("Create zip file...")
     }
-    archiveFileName.set("${libName}.zip")
+    archiveFileName.set("${libName}-${variant}.zip")
     from(releaseDirectory)
     into(releaseName)
     destinationDirectory.set(file(releaseRoot))
@@ -274,8 +289,8 @@ tasks.register<Copy>("duplicateZipToPdex") {
         println("Duplicate zip file to pdex extension...")
     }
     from(releaseRoot) {
-        include("$libName.zip")
-        rename("$libName.zip", "$libName.pdex")
+        include("$libName-${variant}.zip")
+        rename("$libName-${variant}.zip", "$libName-${variant}.pdex")
     }
     into(releaseRoot)
 }
