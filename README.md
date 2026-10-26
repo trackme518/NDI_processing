@@ -3,7 +3,7 @@
 A [Processing](https://processing.org) (4) library for sending and receiving video and audio over
 the network using the NewTek NDI® SDK. For more information about NDI®, see:
 
-http://NDI.NewTek.com/
+https://ndi.video/
 
 NDI sources from other applications (NDI Screen Capture, OBS, vMix, TriCasters, ...) are received
 as `PImage` video and audio buffers, and anything you draw in a sketch can be transmitted as an
@@ -123,6 +123,30 @@ NDIStream aims to be close to the original NDI SDK while still following Java st
 conventions. The vast majority of applications can be simply translated from NDI SDK calls to
 NDIStream calls. Javadocs are in `reference/` (or run `./gradlew javadoc`).
 
+## Tutorial: See it in action
+
+This walks through sending video from one Processing sketch and receiving it in another. The
+sender and receiver can run on the same computer or on two computers on the same local network.
+
+1. Install the library (see [Installation](#installation)) and restart Processing.
+2. Open `File > Examples... > Contributed Libraries > NDI Stream for Processing > SendVideo` and
+   run it. The sketch draws an animated ellipse and publishes itself on the network as the NDI
+   source `NDI_p5 Processing Example`.
+3. To check that the stream is actually being sent, install the free
+   [NDI Tools](https://ndi.video/tools/) and open **NDI Studio Monitor**. The
+   `NDI_p5 Processing Example` source should appear in its source list and display the animation.
+4. Open `File > Examples... > Contributed Libraries > NDI Stream for Processing > FindSources` and
+   run it. It lists the NDI sources on the network; `NDI_p5 Processing Example` should appear
+   within a few seconds.
+5. Optional: run `ReceiveVideo` to connect to the first source and display its video. Both
+   `FindSources` and `ReceiveVideo` automatically use the first source found, so on a network with
+   other NDI sources, make sure `NDI_p5 Processing Example` is the only one, or adapt the sketch to
+   select it by name.
+
+If the source is not found, make sure both computers are on the same local network and that
+mDNS/NDI discovery traffic is allowed through the firewall. The default all-in-one NDIStream build
+bundles the NDI runtime, so no separate NDI installation is required.
+
 ## Building
 
 The build is self-contained: the Gradle wrapper, JDK 17 (the version Processing 4 uses), and all
@@ -131,7 +155,7 @@ installed globally.
 
 ### Requirements
 - A C++ compiler for your OS (`clang++` on macOS, `g++` on Linux, MSVC `cl` on Windows)
-- The [NewTek NDI SDK](https://www.ndi.tv/sdk/) - either installed at the default location, set via
+- The [NDI SDK](https://ndi.video/for-developers/ndi-sdk/) - either installed at the default location, set via
   the `NDI_SDK_DIR` environment variable / `-DndiSdk=<path>`, or placed in the repository root
   as `NDI SDK for Apple`, `NDI SDK for Linux`, etc. Its headers are used to compile the JNI
   bindings, and its runtime (`libndi`) is bundled into the jar.
@@ -200,6 +224,6 @@ follow the guidelines in section 5.2 of the NDI SDK Documentation.
 For full details, please install the NDI SDK and read the NDI SDK Documentation and NDI SDK
 License Agreement. To summarize to the best of my knowledge (not legal advice, please get legal
 consultation for any serious application), applications must:
-- Provide a link to [http://ndi.tv/](http://ndi.tv/) where NDI is used in the application, on its website, and in its documentation.
+- Provide a link to [https://ndi.video/](https://ndi.video/) where NDI is used in the application, on its website, and in its documentation.
 - Refer to NDI, the product, with "NDI®", and contain the phrase "NDI® is a registered trademark of NewTek, Inc." on the same page where it is used (this only applies to the first use of "NDI" in a document).
 - Include the phrase "NDI® is a registered trademark of NewTek, Inc." in any About Box and other locations where trademark attribution is provided.
